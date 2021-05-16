@@ -18,11 +18,11 @@ abstract class ArticleDB : RoomDatabase() {
 
     companion object{
         @Volatile
-        private var instance: ArticleDB? = null
+        private var nstance: ArticleDB? = null
         private val LOCK = Any()
 
-        operator  fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance ?: createDB(context).also { instance = it}
+        operator  fun invoke(context: Context) = nstance ?: synchronized(LOCK){
+            nstance ?: createDB(context).also { nstance = it}
         }
 
         private fun createDB(context: Context)=
