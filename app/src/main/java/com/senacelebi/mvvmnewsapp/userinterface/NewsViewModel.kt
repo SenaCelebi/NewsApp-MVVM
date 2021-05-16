@@ -1,5 +1,6 @@
 package com.senacelebi.mvvmnewsapp.userinterface
 
+import android.app.DownloadManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,9 @@ class NewsViewModel(
     val latestNews: MutableLiveData<Resource<NewsRespond>> = MutableLiveData()
     var latestNewsPage = 1
 
+    val searchNews: MutableLiveData<Resource<NewsRespond>> = MutableLiveData()
+    var searchNewsPage = 1
+
     init {
         getLatestNews("tr")
     }
@@ -28,7 +32,22 @@ class NewsViewModel(
 
     }
 
+    fun searchNews(searchQuery: String) = viewModelScope.launch {
+        searchNews.postValue(Resource.Loading())
+        val response = newsRp.searchNews(searchQuery,searchNewsPage)
+        searchNews.postValue(handleSearchNewsResponse(response))
+    }
+
     private fun handleLatestNewsResponse(response: Response<NewsRespond>) : Resource<NewsRespond>{
+        if(response.isSuccessful){
+            response.body()?.let{resultResponse ->
+                return Resource.Success(resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleSearchNewsResponse(response: Response<NewsRespond>) : Resource<NewsRespond>{
         if(response.isSuccessful){
             response.body()?.let{resultResponse ->
                 return Resource.Success(resultResponse)
