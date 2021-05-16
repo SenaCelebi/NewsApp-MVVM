@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/news_navigation_graph"
+    app:startDestination="@id/latestNews">
+
+    <fragment
+        android:id="@+id/latestNews"
+        android:name="com.senacelebi.mvvmnewsapp.userinterface.fragments.LatestNews"
+        android:label="LatestNews" >
+        <action
+            android:id="@+id/action_latestNews_to_newsItem"
+            app:destination="@id/newsItem"
+            app:enterAnim="@anim/in_left"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteNews"
+        android:name="com.senacelebi.mvvmnewsapp.userinterface.fragments.FavoriteNews"
+        android:label="FavoriteNews" >
+        <action
+            android:id="@+id/action_favoriteNews_to_newsItem"
+            app:destination="@id/newsItem"
+            app:enterAnim="@anim/in_left"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newsItem"
+        android:name="com.senacelebi.mvvmnewsapp.userinterface.fragments.NewsItem"
+        android:label="NewsItem" />
+</navigation>
